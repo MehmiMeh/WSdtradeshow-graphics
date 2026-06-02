@@ -1,4 +1,4 @@
-# Graphics HQ — Trade Show Design Coordination
+# WSD Trade Show Graphics — Project Timeline
 
 A clean, fast web app for coordinating trade show graphics between coordinators and graphic design managers. Tracks events, design tasks, deadlines, and priorities — no backend or database required.
 

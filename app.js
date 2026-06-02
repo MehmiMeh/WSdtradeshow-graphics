@@ -1,5 +1,5 @@
 /* ============================================================
-   Graphics HQ — app.js
+   WSD Trade Show Graphics — app.js
    Data persists in localStorage. No backend required.
    ============================================================ */
 

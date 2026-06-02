@@ -3,45 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trade Show Graphics HQ</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Graphics HQ — Trade Show Design Coordination</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <div class="app">
-    <div class="top-bar">
-      <div>
-        <h1><i class="ti ti-layout-dashboard" aria-hidden="true"></i> Trade Show Graphics HQ</h1>
-        <p>Event tracker · Design task manager · Designer brief</p>
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="logo-mark"><i class="ti ti-star" aria-hidden="true"></i></div>
+        <div>
+          <h1>Graphics HQ</h1>
+          <p>Trade show design coordination</p>
+        </div>
       </div>
-      <div class="tabs">
-        <button class="tab active" onclick="go('dash')">Dashboard</button>
-        <button class="tab" onclick="go('tasks')">All tasks</button>
-        <button class="tab" onclick="go('brief')">Designer brief</button>
-      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-btn active" onclick="go('dash')">
+          <i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard
+        </button>
+        <button class="nav-btn" onclick="go('tasks')">
+          <i class="ti ti-checklist" aria-hidden="true"></i> All tasks
+        </button>
+        <button class="nav-btn" onclick="go('brief')">
+          <i class="ti ti-file-description" aria-hidden="true"></i> Designer brief
+        </button>
+      </nav>
     </div>
 
-    <!-- DASHBOARD -->
+    <!-- ── DASHBOARD ── -->
     <div class="pane" id="pane-dash">
       <div class="stats" id="statsRow"></div>
-      <div class="sec-header">
-        <span class="sec-title">Upcoming events</span>
-        <button class="add-btn" onclick="toggleForm('evForm')">
+
+      <div class="sec-hdr">
+        <span class="sec-title">
+          <i class="ti ti-calendar-event" aria-hidden="true"></i> Events
+        </span>
+        <button class="add-btn ghost" onclick="toggleForm('evForm')">
           <i class="ti ti-plus" aria-hidden="true"></i> Add event
         </button>
       </div>
+
+      <!-- Add-event form -->
       <div class="form-panel" id="evForm" style="display:none">
+        <h3><i class="ti ti-calendar-plus" aria-hidden="true"></i> New event</h3>
         <div class="f-row">
-          <div class="fg"><label>Event name</label><input id="evName" placeholder="e.g. PRINTING United 2026" /></div>
-          <div class="fg"><label>Event dates</label><input id="evDates" placeholder="e.g. Oct 22–24, 2026" /></div>
+          <div class="fg">
+            <label for="evName">Event name</label>
+            <input id="evName" placeholder="e.g. PRINTING United 2026" />
+          </div>
+          <div class="fg">
+            <label for="evDates">Event dates</label>
+            <input id="evDates" placeholder="e.g. Oct 22–24, 2026" />
+          </div>
         </div>
         <div class="f-row">
-          <div class="fg"><label>City / venue</label><input id="evVenue" placeholder="e.g. Las Vegas Convention Center" /></div>
-          <div class="fg"><label>Exhibit submission deadline</label><input type="date" id="evDeadline" /></div>
+          <div class="fg">
+            <label for="evVenue">City / venue</label>
+            <input id="evVenue" placeholder="e.g. Las Vegas Convention Center" />
+          </div>
+          <div class="fg">
+            <label for="evDeadline">Exhibit submission deadline</label>
+            <input type="date" id="evDeadline" />
+          </div>
         </div>
         <div class="f-row full">
-          <div class="fg"><label>Notes (booth size, special requirements, etc.)</label>
-            <textarea id="evNotes" placeholder="Optional…"></textarea>
+          <div class="fg">
+            <label for="evNotes">Notes</label>
+            <textarea id="evNotes" placeholder="Booth size, special requirements…"></textarea>
           </div>
         </div>
         <div class="f-actions">
@@ -49,70 +83,102 @@
           <button class="btn-p" onclick="saveEvent()">Save event</button>
         </div>
       </div>
+
       <div id="evCards"></div>
     </div>
 
-    <!-- ALL TASKS -->
+    <!-- ── ALL TASKS ── -->
     <div class="pane hidden" id="pane-tasks">
-      <div class="sec-header">
-        <span class="sec-title">All design tasks</span>
-        <button class="add-btn" onclick="toggleForm('taskForm')">
+      <div class="sec-hdr">
+        <span class="sec-title">
+          <i class="ti ti-checklist" aria-hidden="true"></i> All tasks
+        </span>
+        <button class="add-btn ghost" onclick="openAddTask(null)">
           <i class="ti ti-plus" aria-hidden="true"></i> Add task
         </button>
-      </div>
-      <div class="form-panel" id="taskForm" style="display:none">
-        <div class="f-row">
-          <div class="fg"><label>Task name</label><input id="tName" placeholder="e.g. Booth backdrop 20×8 ft" /></div>
-          <div class="fg"><label>Event</label><select id="tEvent"></select></div>
-        </div>
-        <div class="f-row three">
-          <div class="fg">
-            <label>Type</label>
-            <select id="tType">
-              <option>Booth graphics</option>
-              <option>Banner</option>
-              <option>Flier</option>
-              <option>Product display</option>
-              <option>Email blast</option>
-              <option>Social media</option>
-              <option>Signage</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="fg">
-            <label>Priority</label>
-            <select id="tPriority">
-              <option value="high">🔴 High</option>
-              <option value="med" selected>🟡 Medium</option>
-              <option value="low">🟢 Low</option>
-            </select>
-          </div>
-          <div class="fg"><label>Due date</label><input type="date" id="tDue" /></div>
-        </div>
-        <div class="f-row full">
-          <div class="fg"><label>Specs / notes for designer</label>
-            <textarea id="tNotes" placeholder="Dimensions, bleed, file format, brand colors…"></textarea>
-          </div>
-        </div>
-        <div class="f-actions">
-          <button class="btn-s" onclick="toggleForm('taskForm')">Cancel</button>
-          <button class="btn-p" onclick="saveTask()">Save task</button>
-        </div>
       </div>
       <div class="filter-bar" id="taskChips"></div>
       <div id="taskRows"></div>
     </div>
 
-    <!-- DESIGNER BRIEF -->
+    <!-- ── DESIGNER BRIEF ── -->
     <div class="pane hidden" id="pane-brief">
-      <div class="sec-header">
-        <span class="sec-title">Designer brief</span>
+      <div class="sec-hdr">
+        <span class="sec-title">
+          <i class="ti ti-file-description" aria-hidden="true"></i> Designer brief
+        </span>
         <button class="copy-btn" onclick="copyBrief()">
           <i class="ti ti-copy" aria-hidden="true"></i> Copy brief
         </button>
       </div>
-      <p class="brief-desc">A ready-to-share summary for your graphic design manager — shows all upcoming events and tasks sorted by priority and deadline.</p>
       <div id="briefContent"></div>
+    </div>
+
+  </div><!-- /.app -->
+
+  <!-- ── TASK MODAL ── -->
+  <div class="modal-overlay hidden" id="taskModal" onclick="closeModal(event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="event.stopPropagation()">
+      <h3 id="modalTitle">
+        Add task
+        <button class="icon-btn" onclick="closeTaskModal()" aria-label="Close">
+          <i class="ti ti-x" aria-hidden="true"></i>
+        </button>
+      </h3>
+
+      <div class="f-row full">
+        <div class="fg">
+          <label for="mTaskName">Task name</label>
+          <input id="mTaskName" placeholder="e.g. Booth backdrop 20×8 ft" />
+        </div>
+      </div>
+
+      <div class="f-row">
+        <div class="fg">
+          <label for="mTaskEvent">Event</label>
+          <select id="mTaskEvent"></select>
+        </div>
+        <div class="fg">
+          <label for="mTaskType">Type</label>
+          <select id="mTaskType">
+            <option>Booth graphics</option>
+            <option>Banner</option>
+            <option>Flier</option>
+            <option>Product display</option>
+            <option>Email blast</option>
+            <option>Social media</option>
+            <option>Signage</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="f-row">
+        <div class="fg">
+          <label for="mTaskDue">Due date</label>
+          <input type="date" id="mTaskDue" />
+        </div>
+        <div class="fg">
+          <label>Priority</label>
+          <div class="priority-seg" id="mPrioritySeg">
+            <button onclick="setPriority('high')" id="p-high">🔴 High</button>
+            <button onclick="setPriority('med')"  id="p-med"  class="sel-med">🟡 Med</button>
+            <button onclick="setPriority('low')"  id="p-low">🟢 Low</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-row full">
+        <div class="fg">
+          <label for="mTaskNotes">Specs / notes for designer</label>
+          <textarea id="mTaskNotes" placeholder="Dimensions, file format, colors…"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-s" onclick="closeTaskModal()">Cancel</button>
+        <button class="btn-p" onclick="saveModalTask()">Save task</button>
+      </div>
     </div>
   </div>
 
